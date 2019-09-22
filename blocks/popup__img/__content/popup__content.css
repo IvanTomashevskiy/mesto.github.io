@@ -1,0 +1,16 @@
+.popupimg__content {
+  
+  
+  background-color: transparent;
+  position: relative;
+  box-sizing: border-box;
+  padding:0px;
+  border: none;
+}
+
+@media screen and (max-width: 540px) {
+  .popupimg__content {
+      border-radius: 10px;
+
+  }
+}
