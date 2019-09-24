@@ -1,0 +1,23 @@
+{
+  "name": "ivantomashevskiy_pro_2.github.io",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build": "webpack --mode production"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/IvanTomashevskiy/IvanTomashevskiy_Pro_2.github.io.git"
+  },
+  "author": "Ivan Tomashevskiy",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/IvanTomashevskiy/IvanTomashevskiy_Pro_2.github.io/issues"
+  },
+  "homepage": "https://github.com/IvanTomashevskiy/IvanTomashevskiy_Pro_2.github.io#readme",
+  "devDependencies": {
+    "webpack": "^4.40.2",
+    "webpack-cli": "^3.3.9"
+  }
+}
