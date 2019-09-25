@@ -1,3 +1,5 @@
+import "./style.css";
+const serverUrl = NODE_ENV === 'development' ? 'http://praktikum.tk/название_группы' : 'https://praktikum.tk/название_группы'
 const placesList = document.querySelector('.places-list');
 const placeCard = document.querySelector('.place-card');
 //const container = document.querySelector('.container')
