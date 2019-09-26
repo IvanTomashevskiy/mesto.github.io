@@ -26,13 +26,23 @@ module.exports = {
              {
                 test: /\.(eot|ttf|woff|woff2)$/,
                 loader: 'file-loader?name=./vendor/[name].[ext]'
-                }
+                },
+                {
+                    test: /\.(png|jpg|gif|ico|svg)$/,
+                    use: [
+                         'file-loader?name=../images/[name].[ext]', // указали папку, куда складывать изображения
+                         {
+                             loader: 'image-webpack-loader',
+                        
+                         },
+                    ],
+                    }
+                
         ]
     },
     plugins: [ 
-        new MiniCssExtractPlugin({
-                filename: 'style.[contenthash].css'
-        }),
+        new MiniCssExtractPlugin({filename: 'style.css'}),
+        
         new HtmlWebpackPlugin({
             inject: false,
             hash: true,
@@ -42,6 +52,7 @@ module.exports = {
         new WebpackMd5Hash(),
         new webpack.DefinePlugin({
             'NODE_ENV': JSON.stringify(process.env.NODE_ENV)
-       })
+       }),
+
     ]
 };

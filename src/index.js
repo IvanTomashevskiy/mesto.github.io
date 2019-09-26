@@ -133,7 +133,7 @@ function resetError(element) {
 }
 
 
-const api = new Api('http://95.216.175.5/cohort2', '4b7cb798-500b-4486-9ae5-bb471da08f30')
+const api = new Api('serverUrl', '4b7cb798-500b-4486-9ae5-bb471da08f30')
 const сardList = new CardList(placesList)
 
 
@@ -148,16 +148,4 @@ api.getCards((cards) => {
   сardList.render(cards)
 })
 
-// Надо исправить - в консоли отображается ошибка
-/**
- * Ошибка getInfo. Запрос не выполнен: TypeError: callback is not a function
-        at api.js:21
-    index.js:81 TypeError: Cannot read property 'name' of undefined
-        at index.js:77
-  */
- 
-// Не работает добавления карточек - ошибка в консоли
-//  Failed to execute 'appendChild' on 'Node': parameter 1 is not of type 'Node'.
-// at HTMLButtonElement.addCard (card-list.js:19)
 
-// Не открывается большая фотография по клику на карточку - ошибка в консоли net::ERR_FILE_NOT_FOUND
