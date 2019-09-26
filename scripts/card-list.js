@@ -1,3 +1,5 @@
+import { Card } from '../scripts/Card.js';
+import { api } from '../scripts/common.js';
 class CardList {
     constructor(container, cards) {
         this.container = container
@@ -30,3 +32,4 @@ class CardList {
     }
     
 }
+export { CardList };

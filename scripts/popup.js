@@ -58,3 +58,5 @@ class Popupsecond {
     }
 }
 const popupsecond = new Popupsecond(document.querySelector(".popup__img"))
+
+export {Popup, Popupsecond, Popupthird};

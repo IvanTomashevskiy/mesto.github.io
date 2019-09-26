@@ -1,3 +1,4 @@
+import {Popup, Popupsecond, Popupthird} from '../scripts/popup.js';
 class Card {
     constructor(name, link) {
 
@@ -75,3 +76,4 @@ class Card {
 
 }
 
+export { Card };

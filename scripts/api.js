@@ -1,3 +1,4 @@
+import avatar from '../imgages/avatar.jpg';
 class Api {
     constructor(url, token) {
         this.url = url;
@@ -93,3 +94,4 @@ class Api {
             })
     }
 }
+export { Api };
