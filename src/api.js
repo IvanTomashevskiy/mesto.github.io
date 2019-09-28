@@ -1,8 +1,8 @@
-class Api {
+//import avatar from '../imgages/avatar.jpg';
+export default class Api {
     constructor(url, token) {
         this.url = url;
         this.token = token;
-        // Хорошо адрес и токен записываются в поля класса из входящих параметров
     }
     getInfo(callback) {
         return fetch(`${this.url}/users/me`, {
@@ -18,8 +18,6 @@ class Api {
                 return Promise.reject(res.status)
             })
             .then((data) => {
-                // Отлично из запросов возвращаются данные сразу в
-                // передаваемую функцию
                 callback(data)
             })
             .catch((err) => {

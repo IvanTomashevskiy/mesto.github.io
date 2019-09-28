@@ -1,5 +1,14 @@
-import "./style.css";
-const serverUrl = NODE_ENV === 'development' ? 'http://praktikum.tk/название_группы' : 'https://praktikum.tk/название_группы'
+import "./index.css";
+import Api from './api.js';
+import CardList from './card-list.js';
+import Popupthird from './popup.js';
+import Popup from './popup.js';
+import Popupsecond from './popup.js';
+
+
+const serverUrl = NODE_ENV === 'development' ? 'http://praktikum.tk/cohort2' : 'https://praktikum.tk/cohort2';
+
+
 const placesList = document.querySelector('.places-list');
 const placeCard = document.querySelector('.place-card');
 //const container = document.querySelector('.container')
