@@ -1,4 +1,4 @@
-export default class Popup {
+class Popup {
     constructor(popupOpen, popupClose) {
         this.popupOpen = popupOpen
         this.popupClose = popupClose
@@ -24,7 +24,7 @@ export default class Popup {
 }
 const popupFirst = new Popup(document.querySelector(".popup"))
 
-export default class Popupthird {
+class Popupthird {
     constructor(popupOpen, popupClose) {
         this.popupOpen = popupOpen
         this.popupClose = popupClose
@@ -44,7 +44,7 @@ export default class Popupthird {
 }
 const popupthird = new Popupthird(document.querySelector(".popup__edit"))
 
-export default class Popupsecond {
+class Popupsecond {
     constructor(popupClose) {
         this.popupClose = popupClose
         this.popupClose
@@ -58,3 +58,5 @@ export default class Popupsecond {
     }
 }
 const popupsecond = new Popupsecond(document.querySelector(".popup__img"))
+
+export {Popup, Popupthird, Popupsecond};
