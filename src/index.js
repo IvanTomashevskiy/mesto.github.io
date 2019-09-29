@@ -1,160 +1,150 @@
 import "./style.css";
 import Api from './api.js';
-import CardList from './card-list.js';
-import Popupthird from './popup.js';
+import CardList from './cardList.js';
 import Popup from './popup.js';
-import Popupsecond from './popup.js';
 
 
 const serverUrl = NODE_ENV === 'development' ? 'http://praktikum.tk/cohort2' : 'https://praktikum.tk/cohort2';
 
-
 const placesList = document.querySelector('.places-list');
-const placeCard = document.querySelector('.place-card');
-//const container = document.querySelector('.container')
-const formNew = document.forms.new;
-const popupOpen = document.querySelector('.user-info__button')
-const popupEditOpen = document.querySelector('.user-info__buttonedit')
-const popupEdit = document.querySelector('.popup__edit')
-const popupImg = document.querySelector('.popup__img')
-const popupImgContent = document.querySelector('.popup__content_img')
-const name = document.querySelector('.user-info__name');
-const job = document.querySelector('.user-info__job');
-const popup = document.querySelector('.popup')
-const popupEditButtonClose = document.querySelector('.popupedit__close')
-const popupButtonImgClose = document.querySelector('.popupimg__close')
-const popupButtonClose = document.querySelector('.popup__close')
-const buttonDel = document.querySelector('.place-card__delete-icon')
-const popupForm = document.querySelector('.popup__form')
-const popupEditForm = document.querySelector('.popupedit__form')
-const popupBtn = document.querySelector('.popup__button')
-const avatar = document.querySelector('.user-info__photo')
-const nik = document.querySelector('.popup__input_type_nik')
-const about = document.querySelector('.popup__input_type_about')
-const work = document.querySelector('#job');
-const username = document.querySelector('#username');
-const forme = document.querySelector('#form');
-const submit = document.querySelector('#submit');
+const cardList = new CardList(placesList);
+const api = new Api({
+    baseUrl: serverUrl,
+    headers: {
+        authorization: '464ca459-5ead-41b4-a6f4-faa5f26c0255',
+        'Content-Type': 'application/json'
+    }
+  });
 
-formNew.addEventListener('input', function () {
-  const form = document.forms.new;
-  const name = form.elements.name;
-  const link = form.elements.link;
-
-  if (name.value.length === 0 || link.value.length === 0) {
-    popupBtn.disabled = true
-    popupBtn.classList.add('input__btn_disabled');
-    popupBtn.classList.remove('input__btn_active');
+const addForm = document.forms.new;  
+const picName = addForm.elements.name;
+const picLink = addForm.elements.link;
 
 
-  } else {
-    popupBtn.disabled = false
-    popupBtn.classList.remove('input__btn_disabled');
-    popupBtn.classList.add('input__btn_active');
-  }
+const editForm = document.forms.edit;  
+const fullName = editForm.elements.fullname;
+const bio = editForm.elements.bio;
+const fullnameError = editForm.querySelector('#fullname-error');
+const bioError = editForm.querySelector('#bio-error');
 
-});
+const profileName = document.querySelector('.user-info__name');
+const profileJob = document.querySelector('.user-info__job');
+const profilePhoto = document.querySelector('.user-info__photo')
 
-popupForm.addEventListener('submit', function (event) {
-  event.preventDefault();
-});
+const addButton = document.querySelector('.user-info__button');
+const editButton = document.querySelector('.user-info__edit-button'); 
 
-popupEditOpen.addEventListener('click', function () {
-  const form = document.forms.edit
-  const {
-    nik,
-    about
-  } = form.elements
-  nik.value = name.textContent;
-  about.value = job.textContent;
-});
 
-const formEdit = document.querySelector('.popupedit__form')
-const buttonSafe = document.querySelector('.popup__buttonsafe')
-const fform = document.forms.edit;
+const popups = new Popup();
 
-formEdit.addEventListener('submit', function (event) {
-  event.preventDefault();
-});
 
-buttonSafe.addEventListener('click', function (event) {
-  const form = document.forms.edit
-  const nik = form.elements.nik
-  const about = form.elements.about
-  api.setUserInfo(nik.value, about.value)
-   .catch((err) => {
-      console.log(err);
+function editProfile() {
+    event.preventDefault();
+    popups.submitEditButton.textContent = 'Загрузка...';
+    api.changeUserInfo(fullName.value, bio.value)    
+        .then(res => {
+            updateUserInfo(res.name, res.about)
+            popups.edit.classList.remove('popup_is-opened');
+            popups.submitEditButton.textContent = 'Сохранить';
+        })
+        .catch(err => console.log(`editProfile error ${err}`));
+}
+function checkValidate(item) {  
+    if (item.nextElementSibling === null) return;
+    item.nextElementSibling.textContent = '';
+    popups.submitEditButton.removeAttribute('disabled');  
+    popups.submitEditButton.classList.add('popup__button_active');  
+    if (item.value.length < 2 || item.value.length > 30) {
+        event.target.nextElementSibling.textContent = 'Должно быть от 2 до 30 символов';
+        popups.submitEditButton.setAttribute('disabled', true);
+        popups.submitEditButton.classList.remove('popup__button_active');
+    }
+    if (item.value.length === 0) {
+        item.nextElementSibling.textContent = 'Это обязательное поле';
+        popups.submitEditButton.setAttribute('disabled', true);
+        popups.submitEditButton.classList.remove('popup__button_active');
+    }
+}
+function validate(event) {  
+    const target = event.target;
+    checkValidate(target);
+}
+function openingValidation(form) {
+    for (let item of form.elements) {    
+        checkValidate(item);
+    };
+}
+function bindHandlers() {
+    editButton.addEventListener('click', function() {
+        popups.open(event);
+    });
+    addButton.addEventListener('click', function() {
+        popups.open(event);
+    });
+    cardList.container.addEventListener('click', function() {
+        popups.open(event);
     });
 
-  name.textContent = nik.value
-  job.textContent = about.value
-  popupEdit.classList.remove('popup_is-opened')
-  formEdit.reset();
-  event.preventDefault();
-});
-
-
-fform.addEventListener('input', function (event) {
-  const fform = document.forms.edit;
-  const nikname = fform.elements.nik
-  const aboutme = fform.elements.about
-  if (nikname.value.length === 0 || aboutme.value.length === 0) {
-    buttonSafe.setAttribute('disabled', true);
-    buttonSafe.classList.add('input__btn_disabled');
-    buttonSafe.classList.remove('input__btn_active');
-  } else {
-    buttonSafe.removeAttribute('disabled', true);
-    buttonSafe.classList.remove('input__btn_disabled');
-    buttonSafe.classList.add('input__btn_active');
-  }
-
-});
-
-
-
-// Слушатели
-username.addEventListener('input', handleValidate);
-work.addEventListener('input', handleValidate);
-
-// Функции-обработчики
-function handleValidate(event) {
-  resetError(event.target);
-  validate(event.target);
+    document.addEventListener('click', function() {     
+        if (event.target.classList.contains('popup__close')) {
+            popups.close(event);
+        }
+    });
+    document.forms.edit.addEventListener('submit', editProfile);
+    fullName.addEventListener('input', validate);    
+    bio.addEventListener('input', validate);
+    
+    addForm.addEventListener('submit', function() {
+        event.preventDefault();
+        popups.submitAddButton.textContent = 'Загрузка...';
+        api.addCard(picName.value, picLink.value)
+            .then(res => {
+                console.log(res);
+           
+                if (res.name && res.link) {
+                    cardList.addCard(res.name, res.link);
+                    popups.add.classList.remove('popup_is-opened'); 
+                    popups.submitAddButton.setAttribute('disabled', true);
+                    popups.submitAddButton.classList.remove('popup__button_active');
+                    popups.submitEditButton.textContent = '+';
+                    addForm.reset();
+                }
+            })
+            .catch(err => console.log(`addCard error ${err}`));
+    });
+    
+    addForm.addEventListener('input', function() {  
+        if (picName.value.length === 0 || picLink.value.length === 0) {    
+            popups.submitAddButton.setAttribute('disabled', true);
+            popups.submitAddButton.classList.remove('popup__button_active');
+        } else {
+            popups.submitAddButton.removeAttribute('disabled');  
+            popups.submitAddButton.classList.add('popup__button_active');
+        }
+    }); 
 }
-
-function validate(element) {
-  const errorElement = document.querySelector(`#error-${element.id}`);
-  if (!element.checkValidity()) {
-    errorElement.textContent = element.validationMessage;
-    activateError(errorElement);
-    return false
-  }
-  return true
+function updateUserInfo(name, bio) {
+    profileName.textContent = name;
+    profileJob.textContent = bio;
 }
-
-function activateError(element) {
-  element.parentNode.classList.add('input-container__invalid');
-}
-
-function resetError(element) {
-  element.parentNode.classList.remove('input-container__invalid');
-  element.textContent = '';
+function updateUserPhoto(link) {
+    profilePhoto.setAttribute('style', `background-image: url(${link})`);
 }
 
 
-const api = new Api('serverUrl', '4b7cb798-500b-4486-9ae5-bb471da08f30')
-const сardList = new CardList(placesList)
-
-
-api.getInfo((userInfo) => {
-  console.dir(userInfo);
-  avatar.style.backgroundImage = `url(${userInfo.avatar})`;
-  name.textContent = userInfo.name;
-  job.textContent = userInfo.about;
-
-});
-api.getCards((cards) => {
-  сardList.render(cards)
-})
-
+bindHandlers();
+api.getUserInfo() 
+    .then(res => {
+        if (res.name && res.about) {
+            updateUserInfo(res.name, res.about);
+            updateUserPhoto(res.avatar); 
+        }
+    })    
+    .catch(err => console.log(`getUserInfo error ${err}`));
+api.getInitialCards()
+    .then(cards => {
+        if (cards && cards.length > 0) {
+            cardList.render(cards);
+        }
+    });
 
