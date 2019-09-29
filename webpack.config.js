@@ -10,17 +10,11 @@ module.exports = {
 entry: { main: './src/index.js' },
 output: {
     path: path.resolve(__dirname, 'dist'),
-    filename: '[name].[chunkhash].js'
+    filename: '[name].[chunkhash].js',
+    publicPath: '',
     },
  module: {
-   rules: [{
-    test: /\.css$/i,
-    use: [
-        (isDev ? 'style-loader' : MiniCssExtractPlugin.loader),
-        'css-loader', 
-        'postcss-loader'
-    ]
-  },
+   rules: [
         {
             test: /\.js$/,
             exclude: /node_modules/,
@@ -30,16 +24,19 @@ output: {
             },
             {
                 test: /\.css$/,
-                use: [MiniCssExtractPlugin.loader, 'css-loader', 'postcss-loader']
+                use: [(isDev ? 'style-loader' : MiniCssExtractPlugin.loader), 'css-loader', 'postcss-loader']
                 },
        
          {
-            test: /\.(png|jpg|gif|ico|svg|eot|ttf|woff|woff2)$/,
+            test: /\.(png|jpg|gif|ico|svg)$/,
             use: [
                  'file-loader?name=../images/[name].[ext]', 
                  {
                      loader: 'image-webpack-loader',
-                     options: {}
+                     options: {
+                        bypassOnDebug: true, 
+                        disable: true
+                     }
                  },
                 ]
           },
