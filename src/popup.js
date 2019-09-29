@@ -1,62 +1,28 @@
-class Popup {
-    constructor(popupOpen, popupClose) {
-        this.popupOpen = popupOpen
-        this.popupClose = popupClose
-
-        this.popupOpen
-        document.querySelector('.user-info__button')
-            .addEventListener('click', this.open);
-
-        this.popupClose
-        document.querySelector('.popup__close')
-            .addEventListener('click', this.close);
-
+export default class Popup {
+    constructor() {
+        this.add = document.querySelector('#popupAdd');
+        this.submitAddButton = this.add.querySelector('.popup__button');
+        this.edit = document.querySelector('#popupEdit');
+        this.submitEditButton = this.edit.querySelector('.popup__button');
+        this.pic = document.querySelector('#popupPic');
     }
-    open() {
-        popup.classList.add('popup_is-opened')
-
+    open(event) {
+        if (event.target.classList.contains('user-info__button')) {
+            this.add.classList.add('popup_is-opened');
+        }
+        if (event.target.classList.contains('user-info__edit-button')) {
+            this.edit.classList.add('popup_is-opened');
+            fullName.value = profileName.textContent;
+            bio.value = profileJob.textContent;
+            openingValidation(editForm);
+        }        
+        if (event.target.classList.contains('place-card__image')) {    
+            this.pic.classList.add('popup_is-opened');
+            this.pic.querySelector('.popup__picture').setAttribute('src', event.target.getAttribute('style').slice(22, -1));
+        }
     }
-    close() {
-        popup.classList.remove('popup_is-opened')
-
-    }
-
-}
-const popupFirst = new Popup(document.querySelector(".popup"))
-
-class Popupthird {
-    constructor(popupOpen, popupClose) {
-        this.popupOpen = popupOpen
-        this.popupClose = popupClose
-        this.popupOpen
-        document.querySelector('.user-info__buttonedit')
-            .addEventListener('click', this.open);
-        this.popupClose
-        document.querySelector('.popupedit__close')
-            .addEventListener('click', this.close);
-    }
-    open() {
-        popupEdit.classList.add('popup_is-opened')
-    }
-    close() {
-        popupEdit.classList.remove('popup_is-opened')
+    close(event) {
+        event.path[2].classList.remove('popup_is-opened');
+    
     }
 }
-const popupthird = new Popupthird(document.querySelector(".popup__edit"))
-
-class Popupsecond {
-    constructor(popupClose) {
-        this.popupClose = popupClose
-        this.popupClose
-        document.querySelector('.popupimg__close')
-            .addEventListener('click', this.close);
-    }
-
-    close() {
-        popupImg.classList.remove('popup_is-opened')
-        document.querySelector('.image__big').remove('.popup__bigimg')
-    }
-}
-const popupsecond = new Popupsecond(document.querySelector(".popup__img"))
-
-export {Popup, Popupthird, Popupsecond};
