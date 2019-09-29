@@ -147,3 +147,19 @@ api.getInitialCards()
             cardList.render(cards);
         }
     });
+
+bindHandlers();
+api.getUserInfo() 
+    .then(res => {
+        if (res.name && res.about) {
+            updateUserInfo(res.name, res.about);
+            updateUserPhoto(res.avatar); 
+        }
+    })    
+    .catch(err => console.log(`getUserInfo error ${err}`));
+api.getInitialCards()
+    .then(cards => {
+        if (cards && cards.length > 0) {
+            cardList.render(cards);
+        }
+    });

@@ -56,4 +56,8 @@ export default class Api {
     } 
 
 
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> 4635d408c12772d705b8a60d73cb1ef67d385666
