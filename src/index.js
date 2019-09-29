@@ -11,7 +11,7 @@ const cardList = new CardList(placesList);
 const api = new Api({
     baseUrl: serverUrl,
     headers: {
-        authorization: '464ca459-5ead-41b4-a6f4-faa5f26c0255',
+        authorization: '4b7cb798-500b-4486-9ae5-bb471da08f30',
         'Content-Type': 'application/json'
     }
   });
