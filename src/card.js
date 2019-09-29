@@ -39,7 +39,6 @@ export default class Card {
         cardDescription.appendChild(cardLikeButton);
     
         return cardContainer;
-<<<<<<< HEAD
     }
     like() {
         this.cardElement.querySelector('.place-card__like-icon').classList.toggle('place-card__like-icon_liked');
@@ -50,15 +49,3 @@ export default class Card {
         this.cardElement.remove();
     }
 }
-=======
-    }
-    like() {
-        this.cardElement.querySelector('.place-card__like-icon').classList.toggle('place-card__like-icon_liked');
-    }
-    remove() {
-        this.cardElement.querySelector('.place-card__like-icon').removeEventListener('click', this.likeHandler);
-        this.cardElement.querySelector('.place-card__delete-icon').removeEventListener('click', this.deleteHandler);
-        this.cardElement.remove();
-    }
-}
->>>>>>> 4635d408c12772d705b8a60d73cb1ef67d385666

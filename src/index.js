@@ -1,6 +1,6 @@
 import "./style.css";
 import Api from './api.js';
-import CardList from './cardList.js';
+import CardList from './card-list.js';
 import Popup from './popup.js';
 
 
@@ -131,22 +131,6 @@ function updateUserPhoto(link) {
     profilePhoto.setAttribute('style', `background-image: url(${link})`);
 }
 
-
-bindHandlers();
-api.getUserInfo() 
-    .then(res => {
-        if (res.name && res.about) {
-            updateUserInfo(res.name, res.about);
-            updateUserPhoto(res.avatar); 
-        }
-    })    
-    .catch(err => console.log(`getUserInfo error ${err}`));
-api.getInitialCards()
-    .then(cards => {
-        if (cards && cards.length > 0) {
-            cardList.render(cards);
-        }
-    });
 
 bindHandlers();
 api.getUserInfo() 
