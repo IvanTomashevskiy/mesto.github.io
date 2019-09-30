@@ -1,7 +1,6 @@
 # IvanTomashevskiy_Pro_2.github.io
 # Mesto
-# https://ivantomashevskiy.github.io
-
+## https://ivantomashevskiy.github.io/IvanTomashevskiy_Pro_2.github.io/
 Что это?
 -----------
 Интерактивная страница куда можно добавлять фотографии, удалять их, ставить лайки, редактировать профиль.
