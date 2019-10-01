@@ -49,3 +49,5 @@ export default class Card {
         this.cardElement.remove();
     }
 }
+
+
