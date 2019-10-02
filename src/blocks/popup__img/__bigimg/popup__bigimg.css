@@ -1,0 +1,8 @@
+.popup__bigimg{
+  
+    min-width: 80vw;
+    min-height: 80vh;
+    background-repeat: no-repeat;
+    border: none;
+    background-size: cover;
+}
